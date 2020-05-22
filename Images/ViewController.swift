@@ -15,17 +15,20 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var BlurRadius: UISlider!
     
-    var inputImg = UIImage(named: "dog1.jpg")!
+    var defaultImg: UIImage? = nil
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        defaultImg = ImgView.image
+        
     }
 
     
     @IBAction func BtnApplyFilter(_ sender: UIButton) {
         
-        var rawImg = CIImage(image: inputImg)
+        var rawImg = CIImage(image: ImgView.image!)
         var filterParams:[String:Any] = [kCIInputImageKey:rawImg, kCIInputRadiusKey:BlurRadius.value]
         ApplyFilters(filterName: "CIBoxBlur", filterParams: filterParams)
         
@@ -35,7 +38,8 @@ class ViewController: UIViewController {
     
     @IBAction func SepiaToneBtn(_ sender: UIButton) {
         
-        var rawImg = CIImage(image: inputImg)
+        
+        var rawImg = CIImage(image: ImgView.image!)
         var filterParams:[String:Any] = [kCIInputImageKey:rawImg, kCIInputIntensityKey: BlurRadius.value ]
         ApplyFilters(filterName: "CISepiaTone", filterParams: filterParams)
           
@@ -44,6 +48,12 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func ResetImg(_ sender: UIButton) {
+        
+        var rawImg = CIImage(image: defaultImg!)
+        ImgView.image = UIImage(ciImage: rawImg!)
+        
+    }
     
     func ApplyFilters(filterName:String , filterParams:[String:Any]){
         
