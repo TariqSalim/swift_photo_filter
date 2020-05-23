@@ -50,8 +50,9 @@ class ViewController: UIViewController {
     
     @IBAction func ResetImg(_ sender: UIButton) {
         
-        var rawImg = CIImage(image: defaultImg!)
-        ImgView.image = UIImage(ciImage: rawImg!)
+       
+        
+        ImgView.image = defaultImg
         
     }
     
